@@ -12,6 +12,7 @@ const youtube = google.youtube("v3");
 // Get channel ID from username
 async function getChannelId(username) {
   try {
+    console.log("Fetching channel ID for:", username);
     const response = await youtube.search.list({
       key: process.env.YOUTUBE_API_KEY,
       q: username,
@@ -20,8 +21,11 @@ async function getChannelId(username) {
     });
 
     if (response.data.items.length > 0) {
-      return response.data.items[0].id.channelId;
+      const channelId = response.data.items[0].id.channelId;
+      console.log("Found channel ID:", channelId);
+      return channelId;
     }
+    console.log("No channel found for username:", username);
     return null;
   } catch (error) {
     console.error("Error getting channel ID:", error);
@@ -32,6 +36,7 @@ async function getChannelId(username) {
 // Get recent uploads from channel
 async function getRecentUploads(channelId) {
   try {
+    console.log("Fetching uploads playlist for channel:", channelId);
     // First, get the uploads playlist ID
     const channelResponse = await youtube.channels.list({
       key: process.env.YOUTUBE_API_KEY,
@@ -41,6 +46,7 @@ async function getRecentUploads(channelId) {
 
     const uploadsPlaylistId =
       channelResponse.data.items[0].contentDetails.relatedPlaylists.uploads;
+    console.log("Found uploads playlist ID:", uploadsPlaylistId);
 
     // Then get the videos from the uploads playlist
     const playlistResponse = await youtube.playlistItems.list({
@@ -50,15 +56,22 @@ async function getRecentUploads(channelId) {
       maxResults: 10,
     });
 
-    return playlistResponse.data.items.map((item) => ({
-      id: item.snippet.resourceId.videoId,
-      title: item.snippet.title,
-      description: item.snippet.description,
-      thumbnail:
-        item.snippet.thumbnails.maxres?.url ||
-        item.snippet.thumbnails.high?.url,
-      publishedAt: item.snippet.publishedAt,
-    }));
+    console.log("Found", playlistResponse.data.items.length, "videos");
+
+    const videos = playlistResponse.data.items.map((item) => {
+      console.log("Processing video:", item.snippet.title);
+      return {
+        id: item.snippet.resourceId.videoId,
+        title: item.snippet.title,
+        description: item.snippet.description,
+        thumbnail:
+          item.snippet.thumbnails.maxres?.url ||
+          item.snippet.thumbnails.high?.url,
+        publishedAt: item.snippet.publishedAt,
+      };
+    });
+
+    return videos;
   } catch (error) {
     console.error("Error getting recent uploads:", error);
     return [];
@@ -68,12 +81,15 @@ async function getRecentUploads(channelId) {
 // Endpoint to get recent uploads
 app.get("/api/videos", async (req, res) => {
   try {
+    console.log("Received request for videos");
     const channelId = await getChannelId("@matty_cycling");
     if (!channelId) {
+      console.log("Channel not found");
       return res.status(404).json({ error: "Channel not found" });
     }
 
     const videos = await getRecentUploads(channelId);
+    console.log("Returning", videos.length, "videos");
     res.json(videos);
   } catch (error) {
     console.error("Error in /api/videos:", error);
@@ -84,6 +100,7 @@ app.get("/api/videos", async (req, res) => {
 // Endpoint to get video details
 app.get("/api/videos/:videoId", async (req, res) => {
   try {
+    console.log("Fetching details for video:", req.params.videoId);
     const response = await youtube.videos.list({
       key: process.env.YOUTUBE_API_KEY,
       id: req.params.videoId,
@@ -91,10 +108,12 @@ app.get("/api/videos/:videoId", async (req, res) => {
     });
 
     if (response.data.items.length === 0) {
+      console.log("Video not found:", req.params.videoId);
       return res.status(404).json({ error: "Video not found" });
     }
 
     const video = response.data.items[0];
+    console.log("Found video details:", video.id);
     res.json({
       duration: video.contentDetails.duration,
       viewCount: video.statistics.viewCount,
