@@ -49,13 +49,13 @@
 }
 
 :root {
-  --primary-color: #ffffff;
-  --background-color: #f6f6f7;
-  --text-color: #222222;
-  --accent-color: #8a898c;
-  --border-color: #e5e5e5;
-  --hover-color: #ffd700;
-  --shadow-color: rgba(0, 0, 0, 0.1);
+  --primary-color: #1a1a1a;
+  --background-color: #121212;
+  --text-color: #ffffff;
+  --accent-color: #a0a0a0;
+  --border-color: #333333;
+  --hover-color: #e0e0e0;
+  --shadow-color: rgba(0, 0, 0, 0.3);
 }
 
 * {
@@ -155,10 +155,9 @@ nav {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: bold;
   letter-spacing: 1px;
-  text-transform: uppercase;
   position: relative;
   padding: 0.5rem 0;
 }
@@ -167,14 +166,20 @@ nav {
   color: var(--text-color);
   position: relative;
   z-index: 1;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 1px;
 }
 
 .logo-highlight {
   color: var(--hover-color);
   position: relative;
   z-index: 1;
-  font-weight: 800;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  text-transform: none;
+  letter-spacing: 1px;
 }
 
 .logo::after {
@@ -360,7 +365,7 @@ main {
 
 .video-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
 }
 
 .video-thumbnail {
@@ -609,7 +614,7 @@ html {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: rgba(0, 0, 0, 0.95);
   z-index: 1000;
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -631,6 +636,7 @@ html {
   overflow: hidden;
   transform: scale(0.9);
   transition: transform 0.3s ease;
+  border: 1px solid var(--border-color);
 }
 
 .modal.show .modal-content {
@@ -641,7 +647,7 @@ html {
   position: absolute;
   top: 1rem;
   right: 1rem;
-  color: var(--primary-color);
+  color: var(--text-color);
   font-size: 2rem;
   cursor: pointer;
   z-index: 1001;
