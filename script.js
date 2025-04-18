@@ -1,3 +1,80 @@
+// API Configuration
+const API_BASE_URL = "http://localhost:3000/api";
+
+// Fetch videos from channel
+async function fetchVideos() {
+  try {
+    const response = await fetch(`${API_BASE_URL}/videos`);
+    const videos = await response.json();
+    return videos;
+  } catch (error) {
+    console.error("Error fetching videos:", error);
+    return [];
+  }
+}
+
+// Fetch video details
+async function fetchVideoDetails(videoId) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/videos/${videoId}`);
+    const video = await response.json();
+    return video;
+  } catch (error) {
+    console.error("Error fetching video details:", error);
+    return null;
+  }
+}
+
+// Update video grid with fetched videos
+async function updateVideoGrid() {
+  // Only target the "More Videos" section, not the drone section
+  const videoGrid = document.querySelector("#videos .video-grid");
+  if (!videoGrid) return;
+
+  try {
+    const videos = await fetchVideos();
+
+    // Clear existing content
+    videoGrid.innerHTML = "";
+
+    // Add each video card
+    videos.forEach((video) => {
+      const videoCard = document.createElement("div");
+      videoCard.className = "video-card animate";
+      videoCard.setAttribute("data-video-id", video.id);
+
+      videoCard.innerHTML = `
+        <div class="video-thumbnail">
+          <img src="${video.thumbnail}" alt="${video.title}" />
+          <div class="play-button">
+            <i class="fas fa-play"></i>
+          </div>
+        </div>
+        <h3>${video.title}</h3>
+        <p>${video.description.substring(0, 100)}...</p>
+        <div class="video-meta">
+          <span><i class="fas fa-calendar"></i> ${new Date(
+            video.publishedAt
+          ).toLocaleDateString()}</span>
+        </div>
+      `;
+
+      videoGrid.appendChild(videoCard);
+    });
+
+    // Add click events to all video cards (including drone section)
+    const videoCards = document.querySelectorAll(".video-card");
+    videoCards.forEach((card) => {
+      card.addEventListener("click", () => {
+        const videoId = card.getAttribute("data-video-id");
+        openVideoModal(videoId);
+      });
+    });
+  } catch (error) {
+    console.error("Error updating video grid:", error);
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   // Handle video card clicks
   const videoCards = document.querySelectorAll(".video-card");
@@ -90,13 +167,8 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.style.overflow = "";
   }
 
-  // Add click event to all video cards
-  videoCards.forEach((card) => {
-    card.addEventListener("click", () => {
-      const videoId = card.getAttribute("data-video-id");
-      openVideoModal(videoId);
-    });
-  });
+  // Fetch and display videos
+  updateVideoGrid();
 
   // Close modal when clicking the close button
   closeModal.addEventListener("click", closeVideoModal);
@@ -114,4 +186,7 @@ document.addEventListener("DOMContentLoaded", () => {
       closeVideoModal();
     }
   });
+
+  // Refresh videos every 5 minutes
+  setInterval(updateVideoGrid, 5 * 60 * 1000);
 });
