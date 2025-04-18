@@ -68,4 +68,50 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initial animation
   addAnimationClasses();
+
+  // Modal Video Player functionality
+  const modal = document.querySelector(".modal");
+  const modalContent = document.querySelector(".modal-content");
+  const closeModal = document.querySelector(".close-modal");
+  const videoPlayer = document.querySelector("#modalVideo");
+
+  // Function to open modal and play video
+  function openVideoModal(videoId) {
+    const videoUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+    videoPlayer.src = videoUrl;
+    modal.classList.add("show");
+    document.body.style.overflow = "hidden";
+  }
+
+  // Function to close modal
+  function closeVideoModal() {
+    modal.classList.remove("show");
+    videoPlayer.src = "";
+    document.body.style.overflow = "";
+  }
+
+  // Add click event to all video cards
+  videoCards.forEach((card) => {
+    card.addEventListener("click", () => {
+      const videoId = card.getAttribute("data-video-id");
+      openVideoModal(videoId);
+    });
+  });
+
+  // Close modal when clicking the close button
+  closeModal.addEventListener("click", closeVideoModal);
+
+  // Close modal when clicking outside the video
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      closeVideoModal();
+    }
+  });
+
+  // Close modal when pressing Escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.classList.contains("show")) {
+      closeVideoModal();
+    }
+  });
 });
