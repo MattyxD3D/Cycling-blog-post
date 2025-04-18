@@ -169,6 +169,7 @@ nav {
   letter-spacing: 1px;
   position: relative;
   padding: 0.5rem 0;
+  white-space: nowrap;
 }
 
 .logo-text {
@@ -179,6 +180,7 @@ nav {
   font-weight: 500;
   text-transform: none;
   letter-spacing: 1px;
+  white-space: nowrap;
 }
 
 .logo-highlight {
@@ -189,6 +191,7 @@ nav {
   font-weight: 300;
   text-transform: none;
   letter-spacing: 1px;
+  white-space: nowrap;
 }
 
 .logo::after {
@@ -566,6 +569,15 @@ footer {
   .modal-content {
     width: 95%;
     height: 60vh;
+  }
+
+  .logo {
+    font-size: 1.8rem;
+  }
+
+  .logo-text,
+  .logo-highlight {
+    font-size: 1.8rem;
   }
 }
 
