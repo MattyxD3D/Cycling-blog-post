@@ -189,4 +189,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Refresh videos every 5 minutes
   setInterval(updateVideoGrid, 5 * 60 * 1000);
+
+  // Mobile Menu Functionality
+  const hamburgerMenu = document.querySelector(".hamburger-menu");
+  const navLinks = document.querySelector(".nav-links");
+  const navOverlay = document.createElement("div");
+  navOverlay.className = "nav-overlay";
+  document.body.appendChild(navOverlay);
+
+  hamburgerMenu.addEventListener("click", () => {
+    hamburgerMenu.classList.toggle("active");
+    navLinks.classList.toggle("active");
+    navOverlay.classList.toggle("active");
+    document.body.style.overflow = navLinks.classList.contains("active")
+      ? "hidden"
+      : "";
+  });
+
+  navOverlay.addEventListener("click", () => {
+    hamburgerMenu.classList.remove("active");
+    navLinks.classList.remove("active");
+    navOverlay.classList.remove("active");
+    document.body.style.overflow = "";
+  });
+
+  // Close menu when clicking on a nav link
+  document.querySelectorAll(".nav-links a").forEach((link) => {
+    link.addEventListener("click", () => {
+      hamburgerMenu.classList.remove("active");
+      navLinks.classList.remove("active");
+      navOverlay.classList.remove("active");
+      document.body.style.overflow = "";
+    });
+  });
 });
