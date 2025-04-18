@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Matty Cycling - Cycling Adventures & Routes</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="logo animate slide-in-left">
+          <span class="logo-text">Matty</span>
+          <span class="logo-highlight">Cycling</span>
+        </div>
+        <ul class="nav-links animate slide-in-right">
+          <li><a href="#featured">Featured</a></li>
+          <li><a href="#videos">All Videos</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <h1 class="animate fade-in-up">Welcome to Matty Cycling</h1>
+      <p class="animate fade-in-up">
+        Join me on epic cycling adventures through stunning landscapes and
+        challenging routes. Follow my journey as I explore new paths and share
+        the beauty of cycling.
+      </p>
+    </section>
+
+    <main>
+      <section id="featured" class="featured-video">
+        <div class="series-description animate">
+          <h2>Featured Cycling Adventure Series</h2>
+          <p>
+            Join me on this epic two-part cycling journey through stunning
+            landscapes and challenging routes.
+          </p>
+        </div>
+
+        <div class="video-container animate">
+          <h2>Part 1: The Journey Begins</h2>
+          <iframe
+            width="100%"
+            height="600"
+            src="https://www.youtube.com/embed/zNjL9efLS04"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+
+        <div class="video-container animate">
+          <h2>Part 2: The Adventure Continues</h2>
+          <iframe
+            width="100%"
+            height="600"
+            src="https://www.youtube.com/embed/QCzDRgN2KwM"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+
+        <div class="route-details animate">
+          <h2>Series Highlights</h2>
+          <div class="route-info">
+            <div class="info-item">
+              <i class="fas fa-route"></i>
+              <span>Total Distance: 120km</span>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-mountain"></i>
+              <span>Total Elevation: 1500m</span>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-clock"></i>
+              <span>Total Duration: 6h</span>
+            </div>
+          </div>
+          <p class="route-description">
+            This two-part series takes you through some of the most breathtaking
+            cycling routes, featuring challenging climbs, stunning descents, and
+            picturesque landscapes. Perfect for cyclists looking for an
+            adventure that combines physical challenge with natural beauty.
+          </p>
+        </div>
+      </section>
+
+      <section id="videos" class="video-gallery">
+        <h2 class="animate">More Cycling Adventures</h2>
+        <div class="video-grid">
+          <div class="video-card animate">
+            <div class="video-thumbnail">
+              <img
+                src="https://img.youtube.com/vi/zNjL9efLS04/maxresdefault.jpg"
+                alt="Part 1: The Journey Begins"
+              />
+              <div class="play-button">
+                <i class="fas fa-play"></i>
+              </div>
+            </div>
+            <h3>Part 1: The Journey Begins</h3>
+            <p>Start of the epic cycling adventure</p>
+            <div class="video-meta">
+              <span><i class="fas fa-route"></i> 60km</span>
+              <span><i class="fas fa-mountain"></i> 750m</span>
+            </div>
+          </div>
+          <div class="video-card animate">
+            <div class="video-thumbnail">
+              <img
+                src="https://img.youtube.com/vi/QCzDRgN2KwM/maxresdefault.jpg"
+                alt="Part 2: The Adventure Continues"
+              />
+              <div class="play-button">
+                <i class="fas fa-play"></i>
+              </div>
+            </div>
+            <h3>Part 2: The Adventure Continues</h3>
+            <p>Continuation of the thrilling journey</p>
+            <div class="video-meta">
+              <span><i class="fas fa-route"></i> 60km</span>
+              <span><i class="fas fa-mountain"></i> 750m</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="animate">
+      <div class="social-links">
+        <a href="https://www.youtube.com/@MattyCycling" target="_blank"
+          ><i class="fab fa-youtube"></i
+        ></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-strava"></i></a>
+      </div>
+      <p>&copy; 2024 Matty Cycling. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
